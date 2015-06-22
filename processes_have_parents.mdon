@@ -1,0 +1,9 @@
+#Ruby
+```
+puts Process.ppid  # Print parent PID
+```
+
+#Python
+```
+os.getppid()
+```
