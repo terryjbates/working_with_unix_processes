@@ -1,0 +1,23 @@
+PID= sequential numeric label
+
+ps -p
+
+# Ruby:
+```
+irb> puts Process.pid
+```
+
+# Python: 
+```
+import os
+os.getpid()
+````
+#Cross Referencing
+
+PIDs viewable in logfiles
+
+#System Calls
+
+Ruby’s Process.pid maps to getpid(2) system call.
+
+Global variable “$$” holds current pid
