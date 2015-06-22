@@ -1,0 +1,45 @@
+# Definition
+Env vars == Key-value pairs that hold data for a process
+
+##Ruby 
+```
+MESSAGE='wing it' ruby -e "puts ENV['MESSAGE']"
+```
+##Python
+```
+MESSAGE='wing it' python -c "import os;print(os.environ.get('MESSAGE')) "
+```
+A hash, yes?
+Some items can be accessed like a hash, but not all.
+
+##Ruby
+```
+puts ENV['EDITOR']
+puts ENV.has_key?('PATH')
+puts ENV.is_a?(Hash)
+outputs:
+vim
+true
+false
+```
+
+##Python
+```
+os.environ.get('PATH')
+os.environ.has_key('PATH')
+os.environ.has_key('MESSAGE')
+os.environ.get('EDITOR')
+isinstance(os.environ,dict)
+```
+
+#System Calls
+
+No system calls directly manipulate env vars. C library functions
+getenv(3) and setenv(3) do work. Section 3 of manual
+
+
+
+
+
+
+
