@@ -1,0 +1,28 @@
+#System Calls
+
+##Userland vs. Kernel
+
+Kernel atop system hardware. Middle man for interactions with hardware.
+Read/Write to filesystem
+Send data over network
+Allocate memory
+Play audio
+Userland programs not allowed to directly access Kernel. You use system calls.
+
+
+##Nomenclature
+
+man man
+
+select(2)
+
+Different sections for different man pages
+Sections:
+
+1. General Commands (shell commands. ex: find (1) )
+2. System Calls
+3. C Library Functions
+4. Special Files
+
+Ex: stat(1) and stat(2)
+
