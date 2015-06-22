@@ -26,3 +26,12 @@ Sections:
 
 Ex: stat(1) and stat(2)
 
+## Processes: The Atoms of Unix
+
+```ruby
+ruby -e "p Time.now
+```
+
+```python
+python -c "import datetime; print(datetime.datetime.now())"
+```
