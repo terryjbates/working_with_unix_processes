@@ -1,0 +1,92 @@
+PIDs represent process == File descriptors represent open files
+
+#Everything is a File
+
+Files, sockets, pipes = files
+
+#Descriptors Represent Resources (Files)
+
+Opening a resource in a running process, the resource is assigned a file descriptor number. File descriptors== not shared with unrelated processes, live/die with process they are bound to. Same way, open resources for a process are closed when exited.
+
+#Ruby
+```
+passwd = File.open(‘/etc/passwd’)
+puts passed.fileno
+=> 3
+```
+
+#Python
+```passwd = open(‘/etc/passwd’, ‘r’)
+passwd.fileno()
+-> 5
+```
+
+Kernel uses file descriptors to keep track of resources used by processes.
+
+File descriptors always use lowest available number. So, if we close old resource, and add new, it will take on lowest available number.
+
+No such thing as a “closed” file descriptor.
+ 
+# Ruby
+
+```
+passwd = File.open('/etc/passwd')
+puts passwd.fileno
+
+hosts = File.open('/etc/hosts')
+puts hosts.fileno
+
+# Close the open passwd file. The frees up its file descriptor
+# number to be used by the next opened resource.
+passwd.close
+
+null = File.open('/dev/null')
+puts null.fileno
+```
+
+# Python
+```
+passwd = open('/etc/passwd', 'r')
+passwd.fileno()
+dir()
+passwd.fileno()
+hosts = open('/etc/hosts', 'r')
+hosts.fileno()
+passwd.close()
+null = open('/dev/null', 'r')
+null.fileno()
+```
+
+# Standard Streams
+
+
+All unix processes come with three open resources.
+
+* **STDIN**: generic way to read input from kbd or pipes
+* **STDOUT**: generic way to write output to monitors, files, printers
+* **STDERR**: generic way to write output to monitors, files, printers
+
+Ruby
+
+puts STDIN.fileno
+puts STDOUT.fileno
+puts STDERR.fileno
+
+Python
+
+sys.stdin.fileno()
+sys.stdout.fileno()
+sys.stderr.fileno() 
+
+File descriptors are at core of network programming with sockets, pipes, and so on, core of any file system ops. Used by every running processes.
+
+System Calls
+
+Many methods in Ruby IO class map to system calls of same name.
+* open
+* close
+* read
+* write
+* pipe
+* fsync
+* stat
