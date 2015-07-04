@@ -1,0 +1,19 @@
+# Out of Control
+With normal processes, normal open resources are well known, writing to STDOUT easy.
+With a forked child process, when you hit CTRL-C, which process should exit?
+
+If parent process dies, child will keep working
+
+fork do
+  5.times do
+    sleep 1
+    puts "I'm an orphan!"
+  end
+end
+
+abort "Parent process died..."
+
+irb dies, but orphaned processes keep running and echo output to terminal.
+
+1. Daemon processes: intentionally orphaned to run forever
+2. Communicating with processes not attached to a terminal session. Use Unix signals
