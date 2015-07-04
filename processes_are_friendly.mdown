@@ -1,0 +1,36 @@
+# Being CoW Friendly
+
+Child processes have full copy of memory space of parent. Physically copying data incurs overhead. CoW (copy-on-write) semantics fights this.
+
+Delay the copying of memory until it needs to be written. Parent and child will share the *same* physical data in memory until one of them needs to modify it, at which point memeory will be copied so that proper separation between processes can be preserved.
+
+arr = [1,2,3]
+
+fork do
+  # At this point the child process has been initialized.
+  # Using CoW this process doesn't need to copy the arr variable, 
+  # since it hasn't modified any shared values it can continue reading 
+  # from the same memory location as the parent process.
+  p arr
+end
+arr = [1,2,3]
+
+fork do
+  # At this point the child process has been initialized.
+  # Because of CoW the arr variable hasn't been copied yet.
+  arr << 4
+  # The above line of code modifies the array, so a copy of
+  # the array will need to be made for this process before
+  # it can modify it. The array in the parent process remains
+  # unchanged.
+end
+
+
+fork(2) is fast, since we don't need to copy anything until something is altered. Child process gets only a copy of data needed, rest can be shared.
+
+# How?
+
+Ruby GC must traverse graph of live objects, and for each one GC must 'mark' it alive.
+With bad old Ruby, this marking "live" meant copying all live objects due to the modification, losing CoW benefits.
+
+With new Ruby, marks are stored in a small data structure. When GC is run after fork, the small region of memory is copied,  graph of live objects shared between parent & child until code modifies an object.
