@@ -1,0 +1,15 @@
+We use workarounds to get state of processes.
+
+1. Logfiles: Relies on filesystem level
+2. Sockets: To communicate with other processes, but relies on network
+
+# Naming Processes
+
+## Ruby
+
+puts $PROGRAM_NAME
+
+10.downto(1) do |num|
+  $PROGRAM_NAME = "Process: #{num}"
+  puts $PROGRAM_NAME
+end
