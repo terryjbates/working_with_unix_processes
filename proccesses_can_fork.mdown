@@ -1,0 +1,34 @@
+# fork(2)
+
+
+Allows running process to create new process programmatically
+
+* initiator "parent"
+* new process "child"
+
+New processes inherits all of the memory in use by parent process, as well as any open file descriptors belonging to parent process. 
+
+New process gets new pid.
+ppid set to that of process that initiated fork(2).
+Child inherits any open file desctriptors from parent at time of fork, same map of file descriptor numbers. Procs can share open files, sockets.
+
+Ex: 1 processes, 500MB Rails app. Forks twice, 3 process, with 500 MB each.
+
+
+if fork
+  puts "entered the if block"  # called from parent
+else
+  puts "entered the else block"  # called from child
+end
+
+
+In child process fork returns nil, 
+In parent process, fork returns pid of newly created child process.
+
+# Multicore Programming
+
+Maybe, forking processes does not guarantee they will be used on different CPUs.
+
+# Using a block
+
+Passing a block to fork will execute in child process
