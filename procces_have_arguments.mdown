@@ -1,0 +1,19 @@
+# Ruby
+$ cat argv.rb
+p ARGV
+$ ruby argv.rb foo bar -va
+["foo", "bar", "-va"]
+
+
+## Python
+
+print(sys.argv)
+
+This is an array in Ruby and a list in Python. Some libs read from ARGV to parse command line options, programmatically changeable.
+
+# Real World
+
+* Accept filenames into a program
+* Parsing command line output
+
+Ruby uses optparse
