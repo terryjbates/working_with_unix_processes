@@ -1,0 +1,62 @@
+All processes exit with a numeric exit code (0-255).
+
+Traditional success is exit code of 0.
+
+# Exit a process
+
+exit
+
+exit 22  # custom exit code to method
+
+# When Kernel#exit invoked, before exiting Ruby, invoke blokcs
+at_exit{ puts 'Last!' }
+exit
+
+# exit! 
+
+Will exit, but send 1 error code, avoid #at_exit blocks.
+
+
+# This will exit the program with a status code 1.
+exit!
+# You can still pass an exit code.
+exit! 33
+# This block will never be invoked.
+at_exit { puts 'Silence!' }
+exit!
+
+# abort
+
+Generic exit process unsuccessfully.
+
+# Will exit with exit code 1.
+abort
+# You can pass a message to Kernel#abort. This message will be printed
+# to STDERR before the process exits.
+abort "Something went horribly wrong."
+# Kernel#at_exit blocks are invoked when using Kernel#abort.
+at_exit { puts 'Last!' }
+abort "Something went horribly wrong."
+will output:
+Something went horribly wrong.
+Last!
+
+# raise 
+
+End process with unhandled exception. This will raise exception that will be handled *somewhere* up the stack.  Still invoke at_exit handlers and print exception message and backtrace to STDERR.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
